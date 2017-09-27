@@ -9,6 +9,26 @@ Bond is a Swift binding framework that takes binding concepts to a whole new lev
 
 Bond is built on top of ReactiveKit and bridges the gap between the reactive and imperative paradigms. You can use it as a standalone framework to simplify your state changes with bindings and reactive data sources, but you can also use it with ReactiveKit to complement your reactive data flows with bindings and reactive delegates and data sources.
 
+### Note: Xcode 9 support
+
+Version 6.3 introduces Xcode 9 support. One of the required changes to support Xcode 9, i.e. Swift 3.2 or 4, was to drop `Collection` conformance from `ObservableArray`, `Observable2DArray`, `ObservableSet` and `ObservableDictionary` types. This is unfortunate, but not problematic as the types expose underlaying collection.
+
+For example, if you were doing
+
+```swift
+for element in observableArray { .. }
+```
+
+now you need to do
+
+```swift
+for element in observableArray.array { .. }
+```
+
+Respective underlaying collections for other types are `Observable2DArray.sections`, `ObservableSet.set` and `ObservableDictionary.dictionary`.
+
+Note: Since version 6.4, ReactiveKit is using Swift 4 syntax that compiles under Xcode 9. If you are still using Xcode 8, please do not update to v6.4 and stay on the latest v6.3.x version!
+
 
 ## What can it do?
 
@@ -59,7 +79,7 @@ Handling `touchUpInside` event is used so frequently that Bond comes with the ex
 
 ```swift
 button.reactive.tap
-  .observe {
+  .observeNext {
     print("Button tapped.")
   }  
 ```
@@ -530,7 +550,7 @@ There are many other methods. Just look at the code reference or source.
 ## Requirements
 
 * iOS 8.0+ / macOS 10.9+ / tvOS 9.0+
-* Xcode 8
+* Xcode 9
 
 ## Communication
 
@@ -579,7 +599,7 @@ What that means for you? Well, nothing has changed conceptually so your migratio
 * `ObservableArray` is reimplemented. Mapping and filtering it is not supported any more.
 * `ObservableArray` is now immutable. Use `MutableObservableArray` instead.
 * Table view and collection view binding closure now has the data source as first argument and the index path as second argument.
-* KVO can now be established using the method `dynamic(keyPath:ofType:)` on any NSObject subclass.
+* KVO can now be established using the methods `keyPath(:ofType:)` / `keyPath(:ofExpectedType:)` on any NSObject subclass.
 * `Queue` is removed. Use `DispatchQueue` instead.
 
 

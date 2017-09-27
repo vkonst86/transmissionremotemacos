@@ -55,7 +55,7 @@ public extension ReactiveExtensions where Base: NSSlider {
     return bond { $0.numberOfTickMarks = $1 }
   }
 
-  public var tickMarkPosition: Bond<NSTickMarkPosition> {
+  public var tickMarkPosition: Bond<NSSlider.TickMarkPosition> {
     return bond { $0.tickMarkPosition = $1 }
   }
 
@@ -64,7 +64,7 @@ public extension ReactiveExtensions where Base: NSSlider {
   }
 }
 
-extension NSSlider: BindableProtocol {
+extension NSSlider {
 
   public func bind(signal: Signal<Double, NoError>) -> Disposable {
     return reactive.doubleValue.bind(signal: signal)

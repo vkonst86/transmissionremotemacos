@@ -25,13 +25,12 @@
 public protocol QueryableDataSourceProtocol: DataSourceProtocol {
   associatedtype Item
   associatedtype Index
-
   func item(at index: Index) -> Item
 }
 
 extension Array: QueryableDataSourceProtocol {
 
-  public func item(at index: Int) -> Iterator.Element {
+  public func item(at index: Int) -> Element {
     return self[index]
   }
 }

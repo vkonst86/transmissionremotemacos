@@ -1,14 +1,14 @@
 PODS:
-  - Alamofire (4.5.1)
+  - Alamofire (4.7.2)
   - AlamofireObjectMapper (4.1.0):
     - Alamofire (~> 4.1)
     - ObjectMapper (~> 2.0)
-  - Bond (6.4.0):
-    - Differ (~> 1.0.0)
-    - ReactiveKit (~> 3.7.0)
-  - Differ (1.0.0)
+  - Bond (6.8.0):
+    - Differ (~> 1.0)
+    - ReactiveKit (~> 3.9)
+  - Differ (1.2.2)
   - ObjectMapper (2.2.9)
-  - ReactiveKit (3.7.1)
+  - ReactiveKit (3.9.4)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
@@ -17,12 +17,12 @@ DEPENDENCIES:
   - ObjectMapper (~> 2.2)
 
 SPEC CHECKSUMS:
-  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
-  Bond: e4c36a1d3b0ebd3969611001738934f744a6fd4c
-  Differ: ac8137d4099659e06f3de6aa26d2c6416d986946
+  Bond: f07e371c05e07c46589c4a518515ea39c6263055
+  Differ: 5ac7b6d0d3a60274b52a0ef087ec0e411b57db2c
   ObjectMapper: 63cfe41bc6f8e7c8f44344c49901b8ae7de14c52
-  ReactiveKit: e9c4a610e853fdf57779e3bb2d7b3033733b87fa
+  ReactiveKit: cafbc91f72751d09baa9a3c3cf6d82b646328a6c
 
 PODFILE CHECKSUM: dc408b25bc941efbaacd51e1df819f6ea7fa83a8
 

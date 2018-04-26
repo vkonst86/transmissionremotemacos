@@ -10,16 +10,16 @@ It uses a [fast algorithm](http://www.xmailserver.org/diff2.pdf) `(O((N+M)*D))` 
 
 - ⚡️ [It is fast](#performance-notes)
 - Differ supports three types of operations:
-    - Insertions
-    - Deletions
-    - Moves (when using `ExtendedDiff`)
+  - Insertions
+  - Deletions
+  - Moves (when using `ExtendedDiff`)
 - Arbitrary sorting of patches (`Patch`)
-- Utilities for updating `UITableView` and `UICollectionView`
+- Utilities for updating `UITableView` and `UICollectionView` in UIKit, and `NSTableView` and `NSCollectionView` in AppKit
 - Calculating differences between collections containing collections (use `NestedDiff`)
 
 ## Why do I need it?
 
-There's a lot more to calculating diffs than performing `UITableView` animations easily!
+There's a lot more to calculating diffs than performing table view animations easily!
 
 Wherever you have code that propagates `added`/`removed`/`moved` callbacks from your model to your user interface, you should consider using a library that can calculate differences. Animating small batches of changes is usually going to be faster and provide a more responsive experience than reloading all of your data.
 
@@ -55,39 +55,33 @@ Delete the item at index 0        | `"b"`
 In order to mitigate this issue, there are two types of output:
 
 - *Diff*
-    - A sequence of deletions, insertions, and moves (if using `ExtendedDiff`) where deletions point to locations of an item to be deleted in the source and insertions point to the items in the output. Differ produces just one `Diff`.
+  - A sequence of deletions, insertions, and moves (if using `ExtendedDiff`) where deletions point to locations of an item to be deleted in the source and insertions point to the items in the output. Differ produces just one `Diff`.
 - *Patch*
-    - An _ordered sequence_ of steps to be applied to the source collection that will result in the second collection. This is based on a `Diff`, but it can be arbitrarily sorted.
+  - An _ordered sequence_ of steps to be applied to the source collection that will result in the second collection. This is based on a `Diff`, but it can be arbitrarily sorted.
 
 ### Practical sorting
 
 In practice, this means that a diff to transform the string `1234` into `1` could be described as the following set of steps:
 
-```
-DELETE 1
-DELETE 2
-DELETE 3
-```
+    DELETE 1
+    DELETE 2
+    DELETE 3
 
 The patch to describe the same change would be:
 
-```
-DELETE 1
-DELETE 1
-DELETE 1
-```
+    DELETE 1
+    DELETE 1
+    DELETE 1
 
 However, if we decided to sort it so that deletions and higher indices are processed first, we get this patch:
 
-```
-DELETE 3
-DELETE 2
-DELETE 1
-```
+    DELETE 3
+    DELETE 2
+    DELETE 1
 
 ## How to use
 
-### `UITableView`/`UICollectionView`
+### Table and Collection Views
 
 ```swift
 // The following will automatically animate deletions, insertions, and moves:
@@ -146,8 +140,8 @@ An advanced example: you would like to calculate the difference first, and then 
 
 `D` is the length of a diff:
 
- - Generating a sorted patch takes `O(D^2)` time.
- - The default order takes `O(D)` to generate.
+  - Generating a sorted patch takes `O(D^2)` time.
+  - The default order takes `O(D)` to generate.
 
 ```swift
 // Generate the difference first
@@ -163,7 +157,7 @@ If you'd like to learn more about how this library works, `Graph.playground` is 
 
 Differ is **fast**. Many of the other Swift diff libraries use a simple `O(n*m)` algorithm, which allocates a 2 dimensional array and then walks through every element. This can use _a lot_ of memory.
 
-In the bundled benchmarks, you should see an order of magnitude difference in calculation time between the two algorithms.
+In the following benchmarks, you should see an order of magnitude difference in calculation time between the two algorithms.
 
 Each measurement is the mean time in seconds it takes to calculate a diff, over 10 runs on an iPhone 6.
 
@@ -174,17 +168,13 @@ Each measurement is the mean time in seconds it takes to calculate a diff, over 
 | deleted |  0.0184   | 0.0050  |
 | diff    |  0.1320   | 63.4084 |
 
-You can run these benchmarks yourself:
-
-```sh
-swift run -c release PerformanceTester Sources/PerformanceTester/Samples/Diff-old.swift Sources/PerformanceTester/Samples/Diff-new.swift
-```
+You can run these benchmarks yourself by [checking out the Diff Performance Suite](https://github.com/tonyarnold/DiffPerformanceSuite).
 
 All of the above being said, the algorithm used by Diff works best for collections with _small_ differences between them. However, even for big differences this library is still likely to be faster than those that use the simple `O(n*m)` algorithm. If you need better performance with large differences between collections, please consider implementing a more suitable approach such as [Hunt & Szymanski's algorithm](http://par.cse.nsysu.edu.tw/~lcs/Hunt-Szymanski%20Algorithm.php) and/or [Hirschberg's algorithm](https://en.wikipedia.org/wiki/Hirschberg%27s_algorithm).
 
 ## Requirements
 
-Differ requires Swift 4 / Xcode 9 or later to compile.
+Differ requires Swift 4.1 / Xcode 9.3 or later to compile.
 
 ## Installation
 

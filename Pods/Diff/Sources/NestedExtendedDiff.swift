@@ -1,3 +1,4 @@
+
 public struct NestedExtendedDiff: DiffProtocol {
 
     public typealias Index = Int
@@ -13,23 +14,14 @@ public struct NestedExtendedDiff: DiffProtocol {
 
     /// Returns the position immediately after the given index.
     ///
-    /// - Parameters:
-    ///   - i: A valid index of the collection. `i` must be less than `endIndex`.
+    /// - Parameter i: A valid index of the collection. `i` must be less than
+    ///   `endIndex`.
     /// - Returns: The index value immediately after `i`.
     public func index(after i: Int) -> Int {
         return i + 1
     }
 
-    /// An array of particular diff operations
-    public var elements: [Element]
-
-    //// Initializes a new `NestedExtendedDiff` from a given array of diff operations.
-    ///
-    /// - Parameters:
-    ///   - elements: an array of particular diff operations
-    public init(elements: [Element]) {
-        self.elements = elements
-    }
+    public let elements: [Element]
 }
 
 public typealias NestedElementEqualityChecker<T: Collection> = (T.Iterator.Element.Iterator.Element, T.Iterator.Element.Iterator.Element) -> Bool where T.Iterator.Element: Collection
@@ -39,9 +31,8 @@ public extension Collection
 
     /// Creates a diff between the callee and `other` collection. It diffs elements two levels deep (therefore "nested")
     ///
-    /// - Parameters:
-    ///   - other: a collection to compare the calee to
-    /// - Returns: a `NestedDiff` between the calee and `other` collection
+    /// - parameter other: a collection to compare the calee to
+    /// - returns: a `NestedDiff` between the calee and `other` collection
     public func nestedExtendedDiff(
         to: Self,
         isEqualSection: EqualityChecker<Self>,
@@ -77,7 +68,7 @@ public extension Collection
         }
 
         let sectionMoves =
-            sectionDiff.compactMap { diffElement -> (Int, Int)? in
+            sectionDiff.flatMap { diffElement -> (Int, Int)? in
                 if case let .moveSection(from, to) = diffElement {
                     return (from, to)
                 }
@@ -110,8 +101,7 @@ public extension Collection
         }
 
         let elementDiff = zip(zip(fromSections, toSections), matchingSectionTraces)
-            .flatMap { (args) -> [NestedExtendedDiff.Element] in
-                let (sections, trace) = args
+            .flatMap { sections, trace -> [NestedExtendedDiff.Element] in
                 return sections.0.extendedDiff(sections.1, isEqual: isEqualElement).map { diffElement -> NestedExtendedDiff.Element in
                     switch diffElement {
                     case let .delete(at):
@@ -132,7 +122,7 @@ public extension Collection
     where Iterator.Element: Collection,
     Iterator.Element.Iterator.Element: Equatable {
 
-    /// - SeeAlso: `nestedDiff(to:isEqualSection:isEqualElement:)`
+    /// - seealso: `nestedDiff(to:isEqualSection:isEqualElement:)`
     public func nestedExtendedDiff(
         to: Self,
         isEqualSection: EqualityChecker<Self>
@@ -149,7 +139,7 @@ public extension Collection
     where Iterator.Element: Collection,
     Iterator.Element: Equatable {
 
-    /// - SeeAlso: `nestedDiff(to:isEqualSection:isEqualElement:)`
+    /// - seealso: `nestedDiff(to:isEqualSection:isEqualElement:)`
     public func nestedExtendedDiff(
         to: Self,
         isEqualElement: NestedElementEqualityChecker<Self>
@@ -167,7 +157,7 @@ public extension Collection
     Iterator.Element: Equatable,
     Iterator.Element.Iterator.Element: Equatable {
 
-    /// - SeeAlso: `nestedDiff(to:isEqualSection:isEqualElement:)`
+    /// - seealso: `nestedDiff(to:isEqualSection:isEqualElement:)`
     public func nestedExtendedDiff(to: Self) -> NestedExtendedDiff {
         return nestedExtendedDiff(
             to: to,
@@ -189,16 +179,9 @@ extension NestedExtendedDiff.Element: CustomDebugStringConvertible {
         case let .insertSection(section):
             return "IS(\(section))"
         case let .moveElement(from, to):
-            return "ME((\(from.item),\(from.section)),(\(to.item),\(to.section)))"
+            return "ME(\(from),\(to))"
         case let .moveSection(from, to):
             return "MS(\(from),\(to))"
         }
-    }
-}
-
-extension NestedExtendedDiff: ExpressibleByArrayLiteral {
-
-    public init(arrayLiteral elements: NestedExtendedDiff.Element...) {
-        self.elements = elements
     }
 }

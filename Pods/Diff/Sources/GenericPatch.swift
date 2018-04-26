@@ -1,3 +1,4 @@
+
 struct SortedPatchElement<T> {
     var value: Patch<T>
     let sourceIndex: Int
@@ -51,7 +52,7 @@ func shiftPatchElement<T>(from: DoublyLinkedList<SortedPatchElement<T>>, to: Dou
     switch type {
     case .cycle:
         fatalError()
-    case let .neighbor(direction), let .jump(direction):
+    case .neighbor(let direction), .jump(let direction):
         if case .left = direction {
             switch (from.value.value, to.value.value) {
             case (.insertion, _):
@@ -106,7 +107,7 @@ func shiftedPatchElements<T>(from sortedPatchElements: [SortedPatchElement<T>]) 
     }
 
     guard let result = linkedList?.array().sorted(by: { (fst, second) -> Bool in
-        fst.sortedIndex < second.sortedIndex
+        return fst.sortedIndex < second.sortedIndex
     }) else {
         return []
     }

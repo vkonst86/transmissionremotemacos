@@ -27,7 +27,7 @@ class BaseTableViewBond<DataSource: DataSourceProtocol> : DefaultTableViewBond<D
     }
     
     open func cellForRow(at index: Int, columnIndex: Int, tableView: NSTableView, dataSource: DataSource) -> NSView? {
-        if let cell = tableView.make(withIdentifier: tableView.tableColumns[columnIndex].identifier, owner: nil) as? NSTableCellView {
+        if let cell = tableView.makeView(withIdentifier: tableView.tableColumns[columnIndex].identifier, owner: nil) as? NSTableCellView {
             return cell
         }
         

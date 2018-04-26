@@ -24,7 +24,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()        
         
-        let windowController = NSApplication.shared().windows[0].windowController as! WindowController
+        let windowController = NSApplication.shared.windows[0].windowController as! WindowController
         self.torrentControls = windowController.torrentControls
         
         viewModel.torrentCategories.bind(to: categoriesListTableView, using: BaseTableViewBond<ObservableArray<TorrentCategoryModel>>())

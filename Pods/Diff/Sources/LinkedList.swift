@@ -1,3 +1,4 @@
+
 class LinkedList<T> {
     let next: LinkedList?
     let value: T
@@ -19,8 +20,8 @@ class LinkedList<T> {
             tailLinkedList = LinkedList(next: tailLinkedList, value: reversed.itemOnStartIndex(advancedBy: i))
         }
 
-        next = tailLinkedList
-        value = first
+        self.next = tailLinkedList
+        self.value = first
     }
 
     func array() -> Array<T> {
@@ -33,7 +34,7 @@ class LinkedList<T> {
 
 class DoublyLinkedList<T> {
     let next: DoublyLinkedList?
-    private(set) weak var previous: DoublyLinkedList?
+    private(set) var previous: DoublyLinkedList?
     var head: DoublyLinkedList {
         guard let previous = previous else {
             return self
@@ -63,9 +64,9 @@ class DoublyLinkedList<T> {
             tailDoublyLinkedList = nextTail
         }
 
-        value = first
-        next = tailDoublyLinkedList
-        next?.previous = self
+        self.value = first
+        self.next = tailDoublyLinkedList
+        self.next?.previous = self
     }
 
     convenience init?(linkedList: LinkedList<T>?) {

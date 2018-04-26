@@ -33,7 +33,7 @@ public class NSSegmentedControlReactive : NSSegmentedControl {
         }
     }
     
-    func selectionChanged () {
+    @objc func selectionChanged () {
         NotificationCenter.default.post(name: NSNotification.Name.NSSegemntedControlReactiveSelectionDidChange, object: self)
     }
 }

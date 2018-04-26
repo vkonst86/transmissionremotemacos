@@ -1,3 +1,4 @@
+
 public struct NestedDiff: DiffProtocol {
 
     public typealias Index = Int
@@ -11,23 +12,14 @@ public struct NestedDiff: DiffProtocol {
 
     /// Returns the position immediately after the given index.
     ///
-    /// - Parameters:
-    ///   - i: A valid index of the collection. `i` must be less than `endIndex`.
+    /// - Parameter i: A valid index of the collection. `i` must be less than
+    ///   `endIndex`.
     /// - Returns: The index value immediately after `i`.
     public func index(after i: Int) -> Int {
         return i + 1
     }
 
-    /// An array of particular diff operations
-    public var elements: [Element]
-
-    /// Initializes a new `NestedDiff` from a given array of diff operations.
-    ///
-    /// - Parameters:
-    ///   - elements: an array of particular diff operations
-    public init(elements: [Element]) {
-        self.elements = elements
-    }
+    public let elements: [Element]
 }
 
 public extension Collection
@@ -35,9 +27,8 @@ public extension Collection
 
     /// Creates a diff between the callee and `other` collection. It diffs elements two levels deep (therefore "nested")
     ///
-    /// - Parameters:
-    ///   - other: a collection to compare the calee to
-    /// - Returns: a `NestedDiff` between the calee and `other` collection
+    /// - parameter other: a collection to compare the calee to
+    /// - returns: a `NestedDiff` between the calee and `other` collection
     public func nestedDiff(
         to: Self,
         isEqualSection: EqualityChecker<Self>,
@@ -77,8 +68,7 @@ public extension Collection
         }
 
         let elementDiff = zip(zip(fromSections, toSections), matchingSectionTraces)
-            .flatMap { (args) -> [NestedDiff.Element] in
-                let (sections, trace) = args
+            .flatMap { sections, trace -> [NestedDiff.Element] in
                 return sections.0.diff(sections.1, isEqual: isEqualElement).map { diffElement -> NestedDiff.Element in
                     switch diffElement {
                     case let .delete(at):
@@ -97,7 +87,7 @@ public extension Collection
     where Iterator.Element: Collection,
     Iterator.Element.Iterator.Element: Equatable {
 
-    /// - SeeAlso: `nestedDiff(to:isEqualSection:isEqualElement:)`
+    /// - seealso: `nestedDiff(to:isEqualSection:isEqualElement:)`
     public func nestedDiff(
         to: Self,
         isEqualSection: EqualityChecker<Self>
@@ -114,7 +104,7 @@ public extension Collection
     where Iterator.Element: Collection,
     Iterator.Element: Equatable {
 
-    /// - SeeAlso: `nestedDiff(to:isEqualSection:isEqualElement:)`
+    /// - seealso: `nestedDiff(to:isEqualSection:isEqualElement:)`
     public func nestedDiff(
         to: Self,
         isEqualElement: NestedElementEqualityChecker<Self>
@@ -132,7 +122,7 @@ public extension Collection
     Iterator.Element: Equatable,
     Iterator.Element.Iterator.Element: Equatable {
 
-    /// - SeeAlso: `nestedDiff(to:isEqualSection:isEqualElement:)`
+    /// - seealso: `nestedDiff(to:isEqualSection:isEqualElement:)`
     public func nestedDiff(to: Self) -> NestedDiff {
         return nestedDiff(
             to: to,
@@ -154,12 +144,5 @@ extension NestedDiff.Element: CustomDebugStringConvertible {
         case let .insertSection(section):
             return "IS(\(section))"
         }
-    }
-}
-
-extension NestedDiff: ExpressibleByArrayLiteral {
-
-    public init(arrayLiteral elements: Element...) {
-        self.elements = elements
     }
 }

@@ -15,7 +15,7 @@ class TorrentListTableViewBond : BaseTableViewBond<ObservableArray<TorrentModel>
     
     override func cellForRow(at index: Int, columnIndex: Int, tableView: NSTableView, dataSource: ObservableArray<TorrentModel>) -> NSView? {
         if let cell = super.cellForRow(at: index, columnIndex: columnIndex, tableView: tableView, dataSource: dataSource) as? NSTableCellView {
-            if cell.identifier == NumberCell {
+            if cell.identifier?.rawValue == NumberCell {
                 cell.textField?.stringValue = String(index + 1)
             }
             return cell

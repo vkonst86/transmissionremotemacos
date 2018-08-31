@@ -105,7 +105,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Bond/Bond.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Diff/Diff.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Differ/Differ.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ReactiveKit/ReactiveKit.framework"
 fi
@@ -113,7 +113,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Bond/Bond.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Diff/Diff.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Differ/Differ.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ReactiveKit/ReactiveKit.framework"
 fi

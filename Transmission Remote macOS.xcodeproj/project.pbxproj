@@ -240,7 +240,6 @@
 				F5AC8ECF1EDE0EA20048AF75 /* Frameworks */,
 				F5AC8ED01EDE0EA20048AF75 /* Resources */,
 				21EDC181D7E022D663392459 /* [CP] Embed Pods Frameworks */,
-				5BA0262FC64FD0FD5D79EFB9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -344,21 +343,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Transmission Remote macOS/Pods-Transmission Remote macOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5BA0262FC64FD0FD5D79EFB9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Transmission Remote macOS/Pods-Transmission Remote macOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

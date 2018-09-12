@@ -6,8 +6,8 @@ target 'Transmission Remote macOS' do
   use_frameworks!
 
   # Pods for Transmission Remote macOS
-  pod 'Bond'
-  pod 'Alamofire',  '~> 4.4'
-  pod 'ObjectMapper', '~> 2.2'
-  pod 'AlamofireObjectMapper', '~> 4.0'
+  pod 'Bond', '~> 6.8.3'
+  pod 'Alamofire'
+  pod 'ObjectMapper', '~> 3.0'
+  pod 'AlamofireObjectMapper', '~> 5.0'
 end
